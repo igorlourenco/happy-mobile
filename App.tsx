@@ -2,11 +2,22 @@ import React from 'react';
 import {Dimensions, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import MapView, {Callout, Marker, PROVIDER_GOOGLE} from "react-native-maps";
 import {Feather} from "@expo/vector-icons";
-
+import {Nunito_600SemiBold, Nunito_700Bold, Nunito_800ExtraBold} from "@expo-google-fonts/nunito";
 
 import mapMarker from "./src/images/map-marker.png";
+import {useFonts} from "expo-font";
 
 export default function App() {
+    const [fontsLoaded] = useFonts({
+        nunito600: Nunito_600SemiBold,
+        nunito700: Nunito_700Bold,
+        nunito800: Nunito_800ExtraBold
+    });
+
+    if (!fontsLoaded) {
+        return null;
+    }
+
     return (
         <View style={styles.container}>
             <MapView
@@ -27,7 +38,9 @@ export default function App() {
                         latitude: -10.2502900,
                         longitude: -48.3523500,
                     }}>
-                    <Callout tooltip onPress={() => {alert("oi")}}>
+                    <Callout tooltip onPress={() => {
+                        alert("oi")
+                    }}>
                         <View style={styles.calloutContainer}>
                             <Text style={styles.calloutText}>
                                 Lar das Crianças
@@ -42,7 +55,8 @@ export default function App() {
                     2 orfanatos encontrados
                 </Text>
 
-                <TouchableOpacity style={styles.createOrphanageButton} onPress={() => {}}>
+                <TouchableOpacity style={styles.createOrphanageButton} onPress={() => {
+                }}>
                     <Feather name="plus" color="#FFF"/>
                 </TouchableOpacity>
             </View>
@@ -71,6 +85,7 @@ const styles = StyleSheet.create({
     },
 
     calloutText: {
+        fontFamily: 'nunito700',
         color: "#0089A5",
         fontSize: 14,
 
@@ -97,6 +112,7 @@ const styles = StyleSheet.create({
     },
 
     footerText: {
+        fontFamily: 'nunito700',
         color: "#8FA7B3"
     },
 
