@@ -31,10 +31,10 @@ export default function SelectMapPosition() {
         <View style={styles.container}>
             <MapView
                 initialRegion={{
-                    latitude: -10.2022607,
-                    longitude: -48.34156,
-                    latitudeDelta: 0.008,
-                    longitudeDelta: 0.008,
+                    latitude: -10.2022607, // Latitude that refers some place in your city
+                    longitude: -48.34156, // Longitude that refers some place in your city
+                    latitudeDelta: 0.008,             // Latitude and Longitude info are available
+                    longitudeDelta: 0.008,            // on Google Maps (DO NOT CHANGE THE DELTAS)
                 }}
                 style={styles.mapStyle}
                 onPress={handleSelectMapPosition}
