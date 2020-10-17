@@ -7,7 +7,6 @@ import * as ImagePicker from "expo-image-picker";
 import api from "../../services/api";
 import {useNavigation} from '@react-navigation/native';
 
-
 interface OrphanageDataRouteParams {
     position: {
         latitude: number,
@@ -26,6 +25,8 @@ export default function OrphanageData() {
     const [instructions, setInstructions] = useState("");
     const [opening_hours, setOpeningHours] = useState("");
     const [open_on_weekends, setOpenOnWeekends] = useState(true);
+    const [whatsapp, setWhatsapp] = useState("");
+    const [instagram, setInstagram] = useState("");
     const [images, setImages] = useState<string[]>([]);
 
 
@@ -61,8 +62,12 @@ export default function OrphanageData() {
             about,
             instructions,
             opening_hours,
-            open_on_weekends
+            open_on_weekends,
+            whatsapp,
+            instagram
         });
+
+        const finalWhatsapp = whatsapp.replace("-", "").replace(" ", "");
 
         const data = new FormData();
 
@@ -72,6 +77,8 @@ export default function OrphanageData() {
         data.append('about', about);
         data.append('instructions', instructions);
         data.append('opening_hours', opening_hours);
+        data.append('whatsapp', finalWhatsapp);
+        data.append('instagram', instagram);
 
         images.forEach((image, index) => data.append('images', {
             name: `image_${index}.jpg`,
@@ -102,11 +109,6 @@ export default function OrphanageData() {
                 value={about}
                 onChangeText={setAbout}
             />
-
-            {/*<Text style={styles.label}>Whatsapp</Text>*/}
-            {/*<TextInput*/}
-            {/*    style={styles.input}*/}
-            {/*/>*/}
 
             <Text style={styles.label}>Fotos</Text>
             <View style={styles.uploadedImagesContainer}>
@@ -147,6 +149,23 @@ export default function OrphanageData() {
                 />
             </View>
 
+
+            <Text style={styles.title}>Contato</Text>
+
+            <Text style={styles.label}>Whatsapp</Text>
+            <TextInput
+                style={styles.input}
+                value={whatsapp}
+                onChangeText={setWhatsapp}
+            />
+
+            <Text style={styles.label}>Instagram</Text>
+            <TextInput
+                style={styles.input}
+                value={instagram}
+                onChangeText={setInstagram}
+            />
+            
             <RectButton style={styles.nextButton} onPress={() => handleCreateOrphanage()}>
                 <Text style={styles.nextButtonText}>Cadastrar</Text>
             </RectButton>
@@ -164,6 +183,7 @@ const styles = StyleSheet.create({
         fontSize: 24,
         fontFamily: 'nunito700',
         marginBottom: 32,
+        marginTop: 42,
         paddingBottom: 24,
         borderBottomWidth: 0.8,
         borderBottomColor: '#D3E2E6'

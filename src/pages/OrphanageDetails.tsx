@@ -20,6 +20,8 @@ interface Orphanage {
     instructions: string;
     opening_hours: string;
     open_on_weekends: boolean;
+    whatsapp: string;
+    instagram: string;
     images: Array<{
         id: number;
         url: string
@@ -46,6 +48,14 @@ export default function OrphanageDetails() {
 
     function handleOpenGoogleMapsRoute (){
         Linking.openURL(`https://www.google.com/maps/dir/?api=1&destination=${orphanage?.latitude},${orphanage?.longitude}`);
+    }
+
+    function handleOpenWhatsappChat (){
+        Linking.openURL(`https://wa.me/55${orphanage?.whatsapp}`);
+    }
+
+    function handleOpenOnInstagram (){
+        Linking.openURL(`https://www.instagram.com/${orphanage?.instagram}`);
     }
 
     return (
@@ -120,11 +130,15 @@ export default function OrphanageDetails() {
 
                 </View>
 
-                {/*<RectButton style={styles.contactButton} onPress={() => {*/}
-                {/*}}>*/}
-                {/*    <FontAwesome name="whatsapp" size={24} color="#FFF"/>*/}
-                {/*    <Text style={styles.contactButtonText}>Entrar em contato</Text>*/}
-                {/*</RectButton>*/}
+                <RectButton style={styles.whatsappButton} onPress={handleOpenWhatsappChat}>
+                    <FontAwesome name="whatsapp" size={24} color="#FFF"/>
+                    <Text style={styles.contactButtonText}>Entre em contato</Text>
+                </RectButton>
+
+                <RectButton style={styles.instagramButton} onPress={handleOpenOnInstagram}>
+                    <FontAwesome name="instagram" size={24} color="#FFF"/>
+                    <Text style={styles.contactButtonText}>Ver no Instagram</Text>
+                </RectButton>
             </View>
         </ScrollView>
     )
@@ -249,8 +263,18 @@ const styles = StyleSheet.create({
         color: '#37C77F'
     },
 
-    contactButton: {
+    whatsappButton: {
         backgroundColor: '#3CDC8C',
+        borderRadius: 20,
+        flexDirection: 'row',
+        justifyContent: 'center',
+        alignItems: 'center',
+        height: 56,
+        marginTop: 40,
+    },
+
+    instagramButton: {
+        backgroundColor: '#F23575',
         borderRadius: 20,
         flexDirection: 'row',
         justifyContent: 'center',
